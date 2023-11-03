@@ -24,7 +24,7 @@ javascript:
   });
 
   function main () {
-    var title = data[0].title + '_' + data[0].description;
+    var title = data[0].title + ' ' + data[0].description;
 
     var result = document.createElement('div');
     result.id = 'RESULT';
@@ -77,7 +77,7 @@ javascript:
     };
 
     html2pdf().set(opt).from(document.querySelector('#RESULT')).save();
-    // result.remove();
+    result.remove();
   }
 
   var htmlToPdf = document.createElement('script');
