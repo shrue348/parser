@@ -29,9 +29,7 @@ javascript:
     result2.style.border = '1px solid #000';
 
     result.appendChild(result2);
-
     result2.innerText = JSON.stringify(data);
-
 
     html2pdf(document.querySelector('#RESULT'));
     result.remove();
