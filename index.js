@@ -25,13 +25,21 @@ javascript:
     body.appendChild(result);
 
     var result2 = document.createElement('div');
-    result2.style.padding = '1em';
+    result2.style.position = 'relative';
+    result2.style.width = 'relative';
     result2.style.border = '1px solid #000';
 
     result.appendChild(result2);
     result2.innerText = JSON.stringify(data);
 
-    html2pdf(document.querySelector('#RESULT'));
+
+    var opt = {
+      margin:       0,
+      filename:     data[0].title + '_' + data[0].description + '.pdf',
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
+    };
+    html2pdf().set(opt).from(document.querySelector('#RESULT')).save();
+
     result.remove();
   }
 
