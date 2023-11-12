@@ -165,6 +165,8 @@ data = [
   }
 ];
 
+var a = [];
+
 function main(){
   var title = data[0].title + ' ' + data[0].description;
 
@@ -202,7 +204,7 @@ function main(){
 
   function createImage(img){
     var el = document.createElement('img');
-    el.src = img;
+    el.src = schemeUrl + img;
     el.style.width = '7em';
     // el.style.position = 'absolute';
     el.style.top = '7em';
@@ -231,13 +233,15 @@ function main(){
 
   data.forEach(function(el) {
     var dataObj = arr.find(function(dataEl){
-      return dataEl.name = el.description
+      return dataEl.name == el.description
     });
 
-    dataObj.imgs.forEach(createImage);
-    console.log('arr', dataObj);
-  });
 
+    if (dataObj) {
+      console.log('arr', dataObj);
+      dataObj.imgs.forEach(createImage);
+    }
+  });
 
   var opt = {
     margin: 0,
