@@ -172,12 +172,12 @@ function main(){
 
   var result = document.createElement('div');
   result.id = 'RESULT';
-    result.style.position = 'absolute';
-    result.style.margin = 'auto';
-    result.style.bottom = 0;
-    result.style.left = 0;
-    result.style.right = 0;
-    result.style.zIndex = 999;
+    // result.style.position = 'absolute';
+    // result.style.margin = 'auto';
+    // result.style.bottom = 0;
+    // result.style.left = 0;
+    // result.style.right = 0;
+    // result.style.zIndex = 999;
   result.style.backgroundColor = '#fff';
   result.style.color = '#000';
   result.style.padding = '1em';
@@ -187,8 +187,14 @@ function main(){
   resultIn.style.position = 'relative';
   resultIn.style.width = '71.5em';
   resultIn.style.height = '55.5em';
+  resultIn.style.boxSizing = 'border-box';
   resultIn.style.border = '1px solid #000';
   resultIn.style.marginLeft = '2em';
+  resultIn.style.display = 'flex';
+  resultIn.style.flexWrap = 'wrap';
+  resultIn.style.alignItems = 'flex-start';
+  resultIn.style.justifyContent = 'space-evenly';
+  resultIn.style.padding = '5em';
   result.appendChild(resultIn);
 
   var resultTitle = document.createElement('div');
@@ -251,8 +257,8 @@ function main(){
     jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
   };
 
-  // html2pdf().set(opt).from(document.querySelector('#RESULT')).save();
-  // result.remove();
+  html2pdf().set(opt).from(document.querySelector('#RESULT')).save();
+  result.remove();
 }
 
 var htmlToPdf = document.createElement('script');
