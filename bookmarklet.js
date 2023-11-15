@@ -3,6 +3,6 @@ javascript:
   var bookbarkletScript = document.createElement('script');
   bookbarkletScript.type = 'text/javascript';
   bookbarkletScript.async = true;
-  bookbarkletScript.src = 'http://okracka-spb.ru/parser/index.js';
+  bookbarkletScript.src = 'https://artdeco-shop.ru/parser/index.js';
   body.appendChild(bookbarkletScript);
 ;void 0;
