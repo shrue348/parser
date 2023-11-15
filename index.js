@@ -1,3 +1,5 @@
+console.log('Parse PDF loaded...')
+
 var styles = `
   .pdf_result {
       position: absolute;
@@ -120,7 +122,6 @@ $('h4:contains("Электронагреватель")').next('table.attribute_t
   });
 });
 
-
 // Заполняем PDF
 function makePDF(){
   var doctitle = data[0].title + ' ' + data[0].description;
@@ -194,7 +195,6 @@ function makePDF(){
 			$(zoomPlusBtn).show();
 			$(zoomMinusBtn).show();
     });
-
   }
   
   function zoomPlus(){
@@ -254,12 +254,8 @@ function makePDF(){
   var styleSheet2 = document.createElement('style');
   styleSheet2.innerText = styles2;
   document.head.appendChild(styleSheet2);
-
-
-  // savePDF();
+  // savePDF(
 }
-
-
 
 var htmlToPdf = document.createElement('script');
 htmlToPdf.id = 'HTML2PDF';
@@ -267,7 +263,6 @@ htmlToPdf.async = true;
 htmlToPdf.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
 htmlToPdf.onload = makePDF;
 body.appendChild(htmlToPdf);
-
 
 // Данные с картинками и количеством
 var arr = [
