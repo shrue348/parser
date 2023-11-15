@@ -1,13 +1,11 @@
-var schemeUrl = 'https://raw.githubusercontent.com/shrue348/parser/main/img/';
-
 var styles = `
   .pdf_result {
-      // position: absolute;
-      // margin: auto;
-      // bottom: 0;
-      // left: 0;
-      // right: 0;
-      // z-index: 999;
+      position: absolute;
+      margin: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
     background-color: #fff;
     color: #000;
     padding: 1em;
@@ -21,7 +19,7 @@ var styles = `
     box-sizing: border-box;
     border: 1px solid #000;
     margin-left: 2em;
-    padding: 5em;
+    padding: 4em;
   }
   .pdf_result_overflow {
     position: relative;
@@ -43,6 +41,7 @@ var styles = `
   }
   .img_wrap {
     position: relative;
+		height: 280px;
   }
   .img_wrap:before {
     content: '';
@@ -52,16 +51,22 @@ var styles = `
     width: 1000px;
     border-top: 1px solid red;
   }
+	.img_wrap img {
+    max-height: 100%;
+		display: block;
+  }
 `;
 var styleSheet = document.createElement('style');
 styleSheet.innerText = styles;
 document.head.appendChild(styleSheet);
 
+var schemeUrl = 'https://raw.githubusercontent.com/shrue348/parser/main/img/';
 var body = document.querySelector('body');
 var table = document.querySelector('#automatic_table');
 var result = document.createElement('div');
 var data = [];
 var zoom = 1;
+var height = 280;
 var input220ids = [87, 88, 89, 90, 91, 92, 93, 95, 96, 97 , 98, 99];
 
 // Устанавливаем ввод
@@ -137,23 +142,23 @@ function makePDF(){
   resultTitle.classList.add('pdf_result_title');
   resultIn.appendChild(resultTitle);
 
-  // var downloadBtn = document.createElement('button');
-  // downloadBtn.type = 'button';
-  // downloadBtn.innerText = 'Скачать PDF';
-  // downloadBtn.onclick = savePDF;
-  // result.appendChild(downloadBtn);
+  var downloadBtn = document.createElement('button');
+  downloadBtn.type = 'button';
+  downloadBtn.innerText = 'Скачать PDF';
+  downloadBtn.onclick = savePDF;
+  result.appendChild(downloadBtn);
 
-  // var zoomPlusBtn = document.createElement('button');
-  // zoomPlusBtn.type = 'button';
-  // zoomPlusBtn.innerText = 'Zoom +';
-  // zoomPlusBtn.onclick = zoomPlus;
-  // result.appendChild(zoomPlusBtn);
+  var zoomPlusBtn = document.createElement('button');
+  zoomPlusBtn.type = 'button';
+  zoomPlusBtn.innerText = 'Zoom +';
+  zoomPlusBtn.onclick = zoomPlus;
+  result.appendChild(zoomPlusBtn);
 
-  // var zoomMinusBtn = document.createElement('button');
-  // zoomMinusBtn.type = 'button';
-  // zoomMinusBtn.innerText = 'Zoom -';
-  // zoomMinusBtn.onclick = zoomMinus;
-  // result.appendChild(zoomMinusBtn);
+  var zoomMinusBtn = document.createElement('button');
+  zoomMinusBtn.type = 'button';
+  zoomMinusBtn.innerText = 'Zoom -';
+  zoomMinusBtn.onclick = zoomMinus;
+  result.appendChild(zoomMinusBtn);
 
 
   function createImage(src){
@@ -171,29 +176,35 @@ function makePDF(){
     var printOpt = {
       margin: 0,
       filename: doctitle + '.pdf',
-      image: { type: 'jpg', quality: 0.98 },
+      image: { type: 'jpg', quality: 1 },
       html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
     };
 
-    // downloadBtn.remove();
-    // zoomPlusBtn.remove();
-    // zoomMinusBtn.remove();
-    // result.style.position = 'relative';
+    $(downloadBtn).hide();
+    $(zoomPlusBtn).hide();
+    $(zoomMinusBtn).hide();
+    result.style.position = 'relative';
 
     html2pdf().set(printOpt).from(document.querySelector('#RESULT')).save().then(function(){
       // result.remove();
       // location.reload();
+
+			$(downloadBtn).show();
+			$(zoomPlusBtn).show();
+			$(zoomMinusBtn).show();
     });
 
   }
   
   function zoomPlus(){
-    
+		height += 10;
+		$('.img_wrap').css('height', height);
   }
   
   function zoomMinus(){
-  
+		height -= 10;
+		$('.img_wrap').css('height', height);
   }
 
   data.forEach(function(el) {
@@ -230,14 +241,14 @@ function makePDF(){
 
   // устанавливаем размер картинок
   var imgCount = $('.img_wrap').length;
-  zoom = .9; 
-  if (imgCount > 10) zoom = .77; 
-  if (imgCount > 20) zoom = .67; 
-  if (imgCount > 30) zoom = .56; 
-  if (imgCount > 35) zoom = .45; 
+  height = 250; 
+  if (imgCount > 10) height = 210; 
+  if (imgCount > 20) height = 190; 
+  if (imgCount > 30) height = 170; 
+  if (imgCount > 35) height = 150; 
   var styles2 = `
     .img_wrap {
-      zoom: ${zoom};
+			height: ${height}px;
     }
   `;
   var styleSheet2 = document.createElement('style');
@@ -245,7 +256,7 @@ function makePDF(){
   document.head.appendChild(styleSheet2);
 
 
-  savePDF();
+  // savePDF();
 }
 
 
