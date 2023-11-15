@@ -122,6 +122,7 @@ $('h4:contains("Электронагреватель")').next('table.attribute_t
   });
 });
 
+
 // Заполняем PDF
 function makePDF(){
   var doctitle = data[0].title + ' ' + data[0].description;
@@ -194,6 +195,7 @@ function makePDF(){
 			$(downloadBtn).show();
 			$(zoomPlusBtn).show();
 			$(zoomMinusBtn).show();
+			result.style.position = 'absolute';
     });
   }
   
@@ -216,6 +218,25 @@ function makePDF(){
       el.data = dataObj;
     }
   });
+
+	// устанавливаем 220 на исключения
+	if (data.some(function(el){
+		return el.data && input220ids.includes(el.data.id)
+	})) {
+		data[0] = ({
+			title: 'Ввод 220',
+			description: 'Ввод 220',
+			count: 1,
+		});
+
+    var dataObj = arr.find(function(dataEl){
+      return dataEl.name == data[0].description
+    });
+
+    if (dataObj) {
+      data[0].data = dataObj;
+    }
+	} 
 
   data.sort(function(a, b){
     if (!a.data || !b.data) return 1;
