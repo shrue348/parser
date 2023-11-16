@@ -69,7 +69,8 @@ var result = document.createElement('div');
 var data = [];
 var zoom = 1;
 var height = 280;
-var input220ids = [87, 88, 89, 90, 91, 92, 93, 95, 96, 97 , 98, 99];
+var input220ids = [98, 99, 100, 101, 102, 103];
+var doctitle = '';
 
 // Устанавливаем ввод
 data.push({
@@ -80,7 +81,7 @@ data.push({
 
 // Парсим таблицу хар-к
 var rows = table.querySelectorAll('tr');
-rows.forEach(function(el){
+rows.forEach(function(el, i){
   var values = el.querySelectorAll('td');
 
   if (values[0] && values[1]) {
@@ -89,6 +90,11 @@ rows.forEach(function(el){
       description: values[1].innerText,
       count: Number(values[2].innerText),
     });
+
+    // Заголовок документа
+    if (i == 1) {
+      doctitle = values[0].innerText + ' ' + values[1].innerText;
+    }
   }
 });
 
@@ -98,7 +104,8 @@ $('h4:contains("Вентилятор")').next('table.attribute_table').each(func
   var description = $(this).find('th:contains("Мощность двигателя")').next('td').text();
   var count = Number($(this).find('th:contains("Число вентиляторов")').next('td').text()) || 1;
 
-  if ($(this).find('th:contains("Резерв мультифэна")')) {
+  if (!!$(this).find('th:contains("Резерв мультифэна")').length) {
+    console.log('count', true);
     count += 1;
   }
 
@@ -122,11 +129,41 @@ $('h4:contains("Электронагреватель")').next('table.attribute_t
   });
 });
 
+// Ищем увлажнители
+$('h4:contains("Увлажнитель")').next('table.attribute_table').each(function(){
+  var obj = {
+    title: 'Увлажнитель',
+    description: '',
+    count: 1,
+  };
+
+  if (!!$(this).find('td:contains("Сотовый")').length) {
+    obj.description = 'Увлажниетель сотовый';
+  }
+  if (!!$(this).find('td:contains("Паровой")').length) {
+    obj.description = 'Увлажниетель паровой';
+  }
+
+  data.push(obj);
+});
+
+// Компрессорно-конденсаторный блок
+// https://fanber.dvaoblaka.ru/main#configuratorId=3378067&filter%5Bkp_id%5D=FB23-008490-01&cardModel=kp&modelId=FB23-008490-01
+// $('h4:contains("Электронагреватель")').next('table.attribute_table').each(function(){
+//   var title = 'Установленная мощность нагревателя';
+//   var description = $(this).find('th:contains("Установленная мощность нагревателя")').next('td').text();
+//   var count = 1;
+
+//   data.push({
+//     title: title,
+//     description: description,
+//     count: count,
+//   });
+//   console.log('1');
+// });
 
 // Заполняем PDF
 function makePDF(){
-  var doctitle = data[0].title + ' ' + data[0].description;
-  
   result.classList.add('pdf_result');
   result.id = 'RESULT';
   body.appendChild(result);
@@ -161,7 +198,6 @@ function makePDF(){
   zoomMinusBtn.innerText = 'Zoom -';
   zoomMinusBtn.onclick = zoomMinus;
   result.appendChild(zoomMinusBtn);
-
 
   function createImage(src){
     var imgWrap = document.createElement('div');
@@ -210,6 +246,10 @@ function makePDF(){
   }
 
   data.forEach(function(el) {
+    if (el.title == 'ККБ') {
+      el.description = 'Компрессорно-конденсаторный блок';
+    }
+
     var dataObj = arr.find(function(dataEl){
       return dataEl.name == el.description
     });
@@ -218,6 +258,9 @@ function makePDF(){
       el.data = dataObj;
     }
   });
+
+  console.log('data',data)
+
 
 	// устанавливаем 220 на исключения
 	if (data.some(function(el){
@@ -256,7 +299,9 @@ function makePDF(){
 
   data.forEach(function(el) {
     for (var i = 0; i < el.count; i++) {
-      el.data.imgs.forEach(createImage);
+      el.data.imgs.forEach(function(img){
+				createImage(img);
+			});
     }
   });
 
@@ -1027,7 +1072,7 @@ var arr = [
   },
   {
     id: 75,
-    name: '4.0 кВт',
+    name: '4 кВт',
     imgs: [
       'двигатель 4 кВт.jpg',
     ],
@@ -1576,12 +1621,12 @@ var arr = [
   },
   {
     id: 128,
-    name: 'ККБ',
+    name: 'Компрессорно-конденсаторный блок',
     imgs: [
       'Group 2.jpg',
     ],
     comment: 'В элементах автоматики',
-    priority: 1,
+    priority: 7,
     link: '',
   },
   {
@@ -1591,7 +1636,7 @@ var arr = [
       'Увлажнитель адиабатный.jpg',
     ],
     comment: '',
-    priority: 1,
+    priority: 6,
     link: '',
   },
   {
@@ -1601,7 +1646,7 @@ var arr = [
       'Паровой увлажнитель.jpg',
     ],
     comment: '',
-    priority: 1,
+    priority: 6,
     link: '',
   },
 ]
