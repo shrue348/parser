@@ -16,11 +16,10 @@ var styles = `
   }
   .pdf_result_in {
     position: relative;
-    width: 71.5em;
+    width: 73.5em;
     height: 55.5em;
     box-sizing: border-box;
     border: 1px solid #000;
-    margin-left: 2em;
     padding: 4em;
   }
   .pdf_result_overflow {
@@ -93,7 +92,7 @@ rows.forEach(function(el, i){
 
     // Заголовок документа
     if (i == 1) {
-      doctitle = values[0].innerText + ' ' + values[1].innerText;
+      doctitle = values[0].innerText + ' ' + values[1].innerText + ', ' + $($('b:contains("ID установки")')[0]).parent().text();
     }
   }
 });
@@ -146,21 +145,6 @@ $('h4:contains("Увлажнитель")').next('table.attribute_table').each(fu
 
   data.push(obj);
 });
-
-// Компрессорно-конденсаторный блок
-// https://fanber.dvaoblaka.ru/main#configuratorId=3378067&filter%5Bkp_id%5D=FB23-008490-01&cardModel=kp&modelId=FB23-008490-01
-// $('h4:contains("Электронагреватель")').next('table.attribute_table').each(function(){
-//   var title = 'Установленная мощность нагревателя';
-//   var description = $(this).find('th:contains("Установленная мощность нагревателя")').next('td').text();
-//   var count = 1;
-
-//   data.push({
-//     title: title,
-//     description: description,
-//     count: count,
-//   });
-//   console.log('1');
-// });
 
 // Заполняем PDF
 function makePDF(){
@@ -258,9 +242,6 @@ function makePDF(){
       el.data = dataObj;
     }
   });
-
-  console.log('data',data)
-
 
 	// устанавливаем 220 на исключения
 	if (data.some(function(el){
@@ -1054,7 +1035,7 @@ var arr = [
     id: 73,
     name: '2.2 кВт',
     imgs: [
-      'двигатель 2.2 кВт.jpg',
+      'двигатель_2_2_кВт.jpg',
     ],
     comment: 'данные с раздела Вентилятор',
     priority: 2,
