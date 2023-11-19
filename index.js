@@ -12,7 +12,16 @@ var styles = `
     color: #000;
     padding: 1em;
     display: flex;
+    justify-content: center;
     gap: 1em;
+  }
+  .pdf_result button {
+    padding: 0;
+    border: 0 none;
+    background-color: #CFD8DC;
+    color: #37474F;
+    padding: .33em;
+    border-radius: .33em;
   }
   .pdf_result_in {
     position: relative;
@@ -53,7 +62,7 @@ var styles = `
     border-top: 1px solid red;
   }
 	.img_wrap img {
-    max-height: 100%;
+    height: 100%;
 		display: block;
   }
 `;
@@ -118,7 +127,8 @@ $('h4:contains("Вентилятор")').next('table.attribute_table').each(func
 // Ищем электронагреватели
 $('h4:contains("Электронагреватель")').next('table.attribute_table').each(function(){
   var title = 'Установленная мощность нагревателя';
-  var description = $(this).find('th:contains("Установленная мощность нагревателя")').next('td').text();
+  // добавляем e чтобы отличить это от вентиляторов, иначе одинаковый description и ищется не та картинка
+  var description = 'e' + $(this).find('th:contains("Установленная мощность нагревателя")').next('td').text();
   var count = 1;
 
   data.push({
@@ -1035,7 +1045,7 @@ var arr = [
     id: 73,
     name: '2.2 кВт',
     imgs: [
-      'двигатель_2_2_кВт.jpg',
+      'engine_2_2_kvt.jpg',
     ],
     comment: 'данные с раздела Вентилятор',
     priority: 2,
@@ -1043,7 +1053,7 @@ var arr = [
   },
   {
     id: 74,
-    name: '3.0 кВт',
+    name: '3 кВт',
     imgs: [
       'Двигатель 3 кВт.jpg',
     ],
@@ -1083,7 +1093,7 @@ var arr = [
   },
   {
     id: 78,
-    name: '11.0 кВт',
+    name: '11 кВт',
     imgs: [
       'двигатеоь 11 кВт.jpg',
     ],
@@ -1093,7 +1103,7 @@ var arr = [
   },
   {
     id: 79,
-    name: '15.0 кВт',
+    name: '15 кВт',
     imgs: [
       'двигатель 15 кВт.jpg',
     ],
@@ -1123,7 +1133,7 @@ var arr = [
   },
   {
     id: 82,
-    name: '30.0 кВт',
+    name: '30 кВт',
     imgs: [
       'двигатель 30 кВт.jpg',
     ],
@@ -1363,7 +1373,7 @@ var arr = [
   },
   {
     id: 106,
-    name: '0.4 кВт',
+    name: 'e0.4 кВт',
     imgs: [
       '0,4 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1374,7 +1384,7 @@ var arr = [
   },
   {
     id: 107,
-    name: '0.6 кВт',
+    name: 'e0.6 кВт',
     imgs: [
       '0,6 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1385,7 +1395,7 @@ var arr = [
   },
   {
     id: 108,
-    name: '1.2 кВт',
+    name: 'e1.2 кВт',
     imgs: [
       '1,2 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1396,7 +1406,7 @@ var arr = [
   },
   {
     id: 109,
-    name: '1.8 кВт',
+    name: 'e1.8 кВт',
     imgs: [
       '1,8 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1407,7 +1417,7 @@ var arr = [
   },
   {
     id: 110,
-    name: '2.2 кВт',
+    name: 'e2.2 кВт',
     imgs: [
       '2,2 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1418,7 +1428,7 @@ var arr = [
   },
   {
     id: 111,
-    name: '3 кВт',
+    name: 'e3 кВт',
     imgs: [
       '3,0 кВт 220.jpg',
       'защита для эл нагрева.jpg',
@@ -1429,7 +1439,7 @@ var arr = [
   },
   {
     id: 112,
-    name: '5х2 кВт',
+    name: 'e5 кВт',
     imgs: [
       '5 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1440,7 +1450,7 @@ var arr = [
   },
   {
     id: 113,
-    name: '6 кВт',
+    name: 'e6 кВт',
     imgs: [
       '6 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1451,7 +1461,7 @@ var arr = [
   },
   {
     id: 114,
-    name: '9 кВт',
+    name: 'e9 кВт',
     imgs: [
       '9 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1462,7 +1472,7 @@ var arr = [
   },
   {
     id: 115,
-    name: '12 кВт',
+    name: 'e12 кВт',
     imgs: [
       '12 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1473,7 +1483,7 @@ var arr = [
   },
   {
     id: 116,
-    name: '15 кВт',
+    name: 'e15 кВт',
     imgs: [
       '15 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1484,7 +1494,7 @@ var arr = [
   },
   {
     id: 117,
-    name: '17 кВт',
+    name: 'e17 кВт',
     imgs: [
       '17 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1495,7 +1505,7 @@ var arr = [
   },
   {
     id: 118,
-    name: '22 кВт',
+    name: 'e22 кВт',
     imgs: [
       '22,5 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1506,7 +1516,7 @@ var arr = [
   },
   {
     id: 119,
-    name: '27 кВт',
+    name: 'e27 кВт',
     imgs: [
       '27 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1517,7 +1527,7 @@ var arr = [
   },
   {
     id: 120,
-    name: '32 кВт',
+    name: 'e32 кВт',
     imgs: [
       '32 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1528,7 +1538,7 @@ var arr = [
   },
   {
     id: 121,
-    name: '45 кВт',
+    name: 'e45 кВт',
     imgs: [
       '45кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1539,7 +1549,7 @@ var arr = [
   },
   {
     id: 122,
-    name: '56 кВт',
+    name: 'e56 кВт',
     imgs: [
       '56 кВт.jpg',
       'защита для эл нагрева.jpg',
@@ -1550,9 +1560,9 @@ var arr = [
   },
   {
     id: 123,
-    name: '67 кВт',
+    name: 'e67 кВт',
     imgs: [
-      '67 кВ.jpg',
+      '67 кВт.jpg',
       'защита для эл нагрева.jpg',
     ],
     comment: '',
@@ -1561,9 +1571,9 @@ var arr = [
   },
   {
     id: 124,
-    name: '90 кВт',
+    name: 'e90 кВт',
     imgs: [
-      '90 кВ.jpg',
+      '90 кВт.jpg',
       'защита для эл нагрева.jpg',
     ],
     comment: '',
