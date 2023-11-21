@@ -44,10 +44,13 @@ var styles = `
   .pdf_result_title {
     font-style: italic;
     position: absolute;
-    bottom: -1px;
-    right: -1px;
-    padding: 1em;
-    border: 1px solid #000;
+    border: 1px solid currentColor;
+    color: red;
+    top: 1em;
+    left: 4em;
+    right: 4em;
+    padding: .8em;
+    text-align: center;
   }
   .img_wrap {
     position: relative;
@@ -84,6 +87,13 @@ var doctitle = '';
 data.push({
   title: 'Ввод 380',
   description: 'Ввод 380',
+  count: 1,
+});
+
+// Устанавливаем пожарный сигнал
+data.push({
+  title: 'Пожарный сигнал',
+  description: 'Пожарный сигнал',
   count: 1,
 });
 
@@ -272,6 +282,10 @@ function makePDF(){
     }
 	} 
 
+  data = data.filter(function(el){
+    return !!el.data;
+  });
+
   data.sort(function(a, b){
     if (!a.data || !b.data) return 1;
 
@@ -282,10 +296,6 @@ function makePDF(){
       && b.data.priority
       && a.data.priority < b.data.priority
     ) ? -1 : 1;
-  });
-
-  data = data.filter(function(el){
-    return !!el.data;
   });
 
   data.forEach(function(el) {
@@ -438,7 +448,7 @@ var arr = [
       'Симисторный регулятор.jpg',
     ],
     comment: 'Данные с раздела автоматика',
-    priority: 5,
+    priority: 2,
     link: '',
   },
   {
@@ -1607,7 +1617,7 @@ var arr = [
       'пожарный сигнал.jpg',
     ],
     comment: 'Добавляется в каждую схему',
-    priority: 1,
+    priority: 10,
     link: '',
   },
   {
