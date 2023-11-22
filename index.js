@@ -30,6 +30,7 @@ var styles = `
     box-sizing: border-box;
     border: 1px solid #000;
     padding: 4em;
+    overflow: hidden;
   }
   .pdf_result_overflow {
     position: relative;
@@ -37,20 +38,22 @@ var styles = `
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: flex-start;
-    row-gap: 1em;
+    row-gap: 2.5em;
     column-gap: 1em;
-    overflow: hidden;
   }
   .pdf_result_title {
     font-style: italic;
     position: absolute;
-    border: 1px solid currentColor;
+    border-top: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    background-color: #fff;
     color: red;
     top: 1em;
-    left: 4em;
-    right: 4em;
+    left: 0;
+    right: 0;
     padding: .8em;
     text-align: center;
+    z-index: 2;
   }
   .img_wrap {
     position: relative;
@@ -59,10 +62,13 @@ var styles = `
   .img_wrap:before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -2em;
+    left: -300px;
     width: 1000px;
+    height: 2em;
     border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    box-sizing: border-box;
   }
 	.img_wrap img {
     height: 100%;
@@ -111,7 +117,7 @@ rows.forEach(function(el, i){
 
     // Заголовок документа
     if (i == 1) {
-      doctitle = values[0].innerText + ' ' + values[1].innerText + ', ' + $($('b:contains("ID установки")')[0]).parent().text();
+      doctitle = $($('b:contains("Название установки:")')[0]).parent().text().split('Название установки: ')[1] + ', ' + values[0].innerText + ' ' + values[1].innerText + ', ' + $($('b:contains("ID установки")')[0]).parent().text();
     }
   }
 });
