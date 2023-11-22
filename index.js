@@ -64,7 +64,7 @@ var styles = `
     position: absolute;
     top: -2em;
     left: -300px;
-    width: 1000px;
+    width: 4000px;
     height: 2em;
     border-top: 1px solid red;
     border-bottom: 1px solid red;
