@@ -86,7 +86,7 @@ var result = document.createElement('div');
 var data = [];
 var zoom = 1;
 var height = 280;
-var input220ids = [98, 99, 100, 101, 102, 103];
+var input220names = ['FB-CK 100', 'FB-CK 125', 'FB-CK 160', 'FB-CK 200', 'FB-CK 250', 'FB-CK 315'];
 var doctitle = '';
 
 // Устанавливаем ввод
@@ -124,7 +124,7 @@ rows.forEach(function(el, i){
 
 // Ищем вентиляторы
 $('h4:contains("Вентилятор")').next('table.attribute_table').each(function(){
-  var title = 'Мощность двигателя';
+  var title = $(this).find('th:contains("Наименование")').next('td').text();
   var description = $(this).find('th:contains("Мощность двигателя")').next('td').text();
   var count = Number($(this).find('th:contains("Число вентиляторов")').next('td').text()) || 1;
 
@@ -269,9 +269,11 @@ function makePDF(){
     }
   });
 
+  console.log('data', data);
+
 	// устанавливаем 220 на исключения
 	if (data.some(function(el){
-		return el.data && input220ids.includes(el.data.id)
+		return input220names.includes(el.title)
 	})) {
 		data[0] = ({
 			title: 'Ввод 220',
